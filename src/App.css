@@ -2,37 +2,107 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
-  background-color: #282c34;
+  background-color: #131313;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   font-size: calc(10px + 2vmin);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.container {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  width: 80%;
+  margin: 0 160px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.editor, .records {
+  background-color: #222227;
+  padding: 40px 36px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.editor {
+  max-height: 160px;
+}
+
+.records {
+  margin-left: 24px;
+}
+
+input {
+  width: 90%;
+  padding: 12px 13px;
+  padding-right: 0;
+  margin-bottom: 12px;
+  background-color: #26272B;
+  border: 1px solid #222227;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+button {
+  padding: 12px 13px 12px 16px;
+  color:#131313;background: 
+  linear-gradient(265.86deg, #D68B2F 8.45%, #FBB961 101.33%);
+  border-radius: 4px;
+  border: none;
+  font-weight: bold;
+  font-size: 16px;
+
+}
+
+.editor button {
+  width: 94%;
+}
+
+.dataList {
+  list-style-type: none;
+  padding: 0;
+  padding-left: 0;
+}
+
+.dataList li {
+  font-size: 18px;
+  padding: 8px 10px;
+  padding-left: 24px;
+  background-color: #DC7AFF;
+  border-radius: 8px;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #131313;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.errors {
+  background-color: rgba(235, 87, 87, 0.14);
+  color: #EB5757;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.reloadButton {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+
+}
+
+.deleteButton {
+  background: rgba(235, 87, 87, 1);
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 10px;
+  padding: 6px;
+  letter-spacing: 0.5px;
+
 }

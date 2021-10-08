@@ -1,15 +1,13 @@
-# Basic Sample Hardhat Project
+# Blockchain Registry Dapp
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+Give this app your first and last name and it'll store it on the blockchain. Nothing fancy.
 
-Try running some of the following tasks:
+## Special cases
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+1. You can only store one record per address in the registry
+2. Only the record creator or the admin can "delete" a record from the registry.
+3. You can view all the records on the blockchain.
+
+## Demo
+
+Demo URL()
