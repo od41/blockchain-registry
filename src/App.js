@@ -6,8 +6,7 @@ import './App.css';
 
 import Registry from './artifacts/contracts/Registry.sol/Registry.json'
 
-import contractAddress from './.config'
-// const contractAddress = "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+import {contractAddress} from './.config'
 console.log(contractAddress)
 
 function App() {
@@ -29,21 +28,39 @@ function App() {
   }
 
   async function fetchRecords() {
-    const provider = new ethers.providers.JsonRpcProvider()    
+    const provider = new ethers.providers.JsonRpcProvider("https://rinkeby.infura.io/v3/f1b4413e138b4b8a8247c53ca79bdbb5")  
     const registryContract = new ethers.Contract(contractAddress, Registry.abi, provider)
     const data = await registryContract.fetchRecords()
 
-    const items = await Promise.all(data.map(async datum => {
-      // const canDelete = datum.creator === signer.address
-      let item = {
-        profileId: datum.profileId,
-        firstName: datum.firstName,
-        lastName: datum.lastName,
-        // canDelete: canDelete 
+    let items
+    try{
+      items = await Promise.all(data.map(async datum => {
+        // const canDelete = datum.creator === signer.address
+        let item = {
+          profileId: datum.profileId,
+          firstName: datum.firstName,
+          lastName: datum.lastName,
+          // canDelete: canDelete 
+        }
+  
+  
+        return item
+      }))
+    } catch (err) {
+      let message;
+      if(err.code === -32603){
+        message = err.data.message
+        // message = message.split("\'")
+        message = message.match(/'([^']+)'/)[1]
+        message += `. Please try again`
+
+      }else {
+        message = err.message
+        message += `. Please try again`
       }
 
-      return item
-    }))
+      setError(message)
+    }
 
     setRecords(items)
     setIsLoading(false)
@@ -118,11 +135,11 @@ function App() {
     fetchRecords()
   }, [])
 
-  if(isLoading && !records.length) {
-    return <div>
-      <h1>No records created</h1>
-    </div>
-  }
+  // if(isLoading && !records.length) {
+  //   return <div>
+  //     <h1>No records created</h1>
+  //   </div>
+  // }
 
   return (
     <div className="App">
@@ -154,16 +171,17 @@ function App() {
               </div>
             </form>
             <button onClick={createRecord}>Create record</button>
+            <p className="regFee">Registration requires 0.01ETH</p>
             
           </div>
 
           <div className="records">
-            <div className="errors" style={{display: error == '' ? 'none' : 'block',}}>{error}</div>
+            <div className="errors" style={{display: error == '' ? 'none' : 'flex',}}>{error}</div>
 
             <button onClick={fetchRecords} className="reloadButton">Reload</button>
 
-            {isLoading && !records.length ? <>
-                <h1>No records created</h1>
+            {!isLoading && !records.length ? <>
+                <h3 className="notice">No records created</h3>
               </> : 
                 <ul className="dataList">
                   {records.map((record, i) => {

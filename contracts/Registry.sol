@@ -86,17 +86,16 @@ contract Registry is ReentrancyGuard {
        
         // require msg.sender to be owner
         // require msg.sender to be admin
-        require(Profiles[profileId].creator == msg.sender || admin == msg.sender, "Only record creator can delete a profile");
+        require(Profiles[profileId].creator == msg.sender || admin == msg.sender, "Only record creator or the admin can delete a profile");
 
         // require record to exist
         require(Profiles[profileId].creator != address(0), "Error, record doesn't exist.");
     
         delete Profiles[profileId];
-        // Profile profileToDelete = Profiles[profileId];
-        // userIndex[rowToDelete] = keyToMove;
-        // userStructs[keyToMove].index = rowToDelete; 
         _profilesCreated.decrement();
         emit ProfileDeleted(profileId, msg.sender);
+        
+         hasExistingProfile[msg.sender] = false;
         
         return true;
         // delete record with id

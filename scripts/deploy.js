@@ -1,10 +1,10 @@
 const hre = require("hardhat");
 const fs = require('fs');
-const contractAddress = require('../src/.config')
+const {adminAddress} = require('../src/.config')
 
 async function main() {
   const Registry = await hre.ethers.getContractFactory("Registry");
-  const registry = await Registry.deploy(contractAddress);
+  const registry = await Registry.deploy(adminAddress);
 
   await registry.deployed();
 

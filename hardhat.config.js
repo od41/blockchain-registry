@@ -17,7 +17,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 
-const SECRET = '0a8739d8508cbf1114e51a21af354b3c80a435f81e2c76c0df8db73c4252fd4c'
+const ACCOUNT_KEY = process.env.ACCOUNT_KEY
 module.exports = {
   solidity: "0.8.4",
   paths: {
@@ -27,9 +27,9 @@ module.exports = {
     hardhat: {
       chainId: 1337
     },
-    ropsten: {
-      url: "https://ropsten.infura.io/v3/92b446683d074f71af68d9e7d71a321b",
-      accounts: [`0x${SECRET}`]
+    rinkeby: {
+      url: "https://rinkeby.infura.io/v3/f1b4413e138b4b8a8247c53ca79bdbb5",
+      accounts: [`0x${ACCOUNT_KEY}`]
     }
   }
 };

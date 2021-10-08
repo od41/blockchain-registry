@@ -42,7 +42,8 @@ input {
   margin-bottom: 12px;
   background-color: #26272B;
   border: 1px solid #222227;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 button {
@@ -53,7 +54,10 @@ button {
   border: none;
   font-weight: bold;
   font-size: 16px;
+}
 
+button:hover {
+  cursor: pointer;
 }
 
 .editor button {
@@ -88,6 +92,16 @@ button {
   padding: 12px;
   font-size: 14px;
   margin-bottom: 24px;
+  flex-wrap: wrap;
+  overflow-wrap: anywhere;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 495px;
+  line-height: 1.2rem;
+  max-height: 3rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .reloadButton {
@@ -105,4 +119,16 @@ button {
   padding: 6px;
   letter-spacing: 0.5px;
 
+}
+
+.notice {
+  font-size: 24px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 24px 0;
+  border-radius: 4px;
+}
+
+.regFee {
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
 }
