@@ -1,4 +1,5 @@
 require("@nomiclabs/hardhat-waffle");
+const fs = require('fs')
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -17,7 +18,9 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 
-const ACCOUNT_KEY = process.env.ACCOUNT_KEY
+const ACCOUNT_KEY = fs.readFileSync(".secret").toString();
+
+
 module.exports = {
   solidity: "0.8.4",
   paths: {
@@ -27,8 +30,8 @@ module.exports = {
     hardhat: {
       chainId: 1337
     },
-    rinkeby: {
-      url: "https://rinkeby.infura.io/v3/f1b4413e138b4b8a8247c53ca79bdbb5",
+    sepolia: {
+      url: "https://sepolia.infura.io/v3/f1b4413e138b4b8a8247c53ca79bdbb5",
       accounts: [`0x${ACCOUNT_KEY}`]
     }
   }
