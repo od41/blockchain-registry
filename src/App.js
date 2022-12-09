@@ -186,7 +186,7 @@ function App() {
                 <ul className="dataList">
                   {records.map((record, i) => {
                     return <li key={record.profileId}>{record.firstName} {record.lastName} 
-                    <button className="deleteButton" onClick={() => deleteRecord(record.profileId)}>delete</button>
+                    {/* <button className="deleteButton" onClick={() => deleteRecord(record.profileId)}>delete</button> */}
                     </li>
                   })}
                 </ul>
