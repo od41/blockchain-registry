@@ -78,11 +78,27 @@ button:hover {
   border-radius: 8px;
   margin-bottom: 14px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   color: #131313;
   font-weight: bold;
   text-transform: capitalize;
+}
+
+.message {
+  font-size: 15px;
+}
+
+.sender {
+  font-size: 11px;
+  border-radius: 500px;
+  margin-top: 8px;
+  font-weight: 400;
+  background-color: rgba(235, 87, 87, 1);
+  color: white;
+  padding: 4px 8px;
+  text-transform: lowercase;
 }
 
 .errors {

@@ -28,7 +28,8 @@ function App() {
   }
 
   async function fetchRecords() {
-    const provider = new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/f1b4413e138b4b8a8247c53ca79bdbb5")  
+    const provider = new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/f1b4413e138b4b8a8247c53ca79bdbb5")  // production
+    // const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545/")  // local dev
     const registryContract = new ethers.Contract(contractAddress, Registry.abi, provider)
     const data = await registryContract.fetchRecords()
 
@@ -38,8 +39,8 @@ function App() {
         // const canDelete = datum.creator === signer.address
         let item = {
           profileId: datum.profileId,
-          firstName: datum.firstName,
-          lastName: datum.lastName,
+          name: datum.name,
+          message: datum.message,
           // canDelete: canDelete 
         }
   
@@ -73,14 +74,14 @@ function App() {
     const signer = provider.getSigner()
 
     const form = newRecordForm.current
-    const firstName = form['firstName'].value
-    const lastName = form['lastName'].value
+    const name = form['name'].value
+    const message = form['message'].value
 
     const contract = new ethers.Contract(contractAddress, Registry.abi, signer)
-    const regFee = ethers.utils.parseUnits('0.01', 'ether')
+    const regFee = ethers.utils.parseUnits('0.0001', 'ether')
 
     try {
-      const transaction = await contract.createRecord(firstName, lastName, {
+      const transaction = await contract.createRecord(name, message, {
         value: regFee
       })
       await transaction.wait()
@@ -145,7 +146,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>
-          Blockchain Registry
+          dMessageBoard
         </h1>
         <p>{userAddress}</p>
         <div className="container">
@@ -155,23 +156,21 @@ function App() {
               <form ref={newRecordForm}>
               <div>
                 <input
-                  name="firstName"
-                  // onChange={e => setGreetingValue(e.target.value)}
-                  placeholder="First name"
+                  name="name"
+                  placeholder="Name"
                   type="text"
                 />
               </div>
               <div>
                 <input
-                  name="lastName"
-                  // onChange={e => setGreetingValue(e.target.value)}
-                  placeholder="Last name"
+                  name="message"
+                  placeholder="Message"
                   type="text"
                   />
               </div>
             </form>
-            <button onClick={createRecord}>Create record</button>
-            <p className="regFee">Registration requires 0.01ETH</p>
+            <button onClick={createRecord}>Post message</button>
+            <p className="regFee">Registration requires 0.0001ETH</p>
             
           </div>
 
@@ -185,7 +184,13 @@ function App() {
               </> : 
                 <ul className="dataList">
                   {records.map((record, i) => {
-                    return <li key={record.profileId}>{record.firstName} {record.lastName} 
+                    return <li key={record.profileId}>
+                      <div className='message'>
+                      {record.message}
+                      </div> 
+                      <div className='sender'>
+                      @{record.name} 
+                      </div>
                     {/* <button className="deleteButton" onClick={() => deleteRecord(record.profileId)}>delete</button> */}
                     </li>
                   })}

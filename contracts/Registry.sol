@@ -13,14 +13,14 @@ contract Registry is ReentrancyGuard {
 
     address public admin;
 
-    uint256 private regFee = 0.01 ether;
+    uint256 private regFee = 0.0001 ether;
 
     mapping(address => bool) public hasExistingProfile;
 
     struct Profile {
         uint profileId;
-        string firstName;
-        string lastName;
+        string name;
+        string message;
         address creator;
     }
 
@@ -28,8 +28,8 @@ contract Registry is ReentrancyGuard {
 
     event ProfileRegistered(
         uint indexed profileId,
-        string firstName,
-        string lastName,
+        string name,
+        string message,
         address creator
     );
 
@@ -42,24 +42,27 @@ contract Registry is ReentrancyGuard {
         admin = _admin;
     }
 
-    function createRecord(string memory firstName, string memory lastName) public payable {
-        require(msg.value >= regFee, "Set registration fee to a minimum 0.01 ETH");
-        // an address can only create one record
-        require(hasExistingProfile[msg.sender] == false, "Cannot create multiple records with the same address");
+    function setRegFee(uint256 _regFee) public {
+        require(msg.sender == admin, "Only admin can set registration fee");
+        regFee = _regFee;
+    }
+
+    function createRecord(string memory _name, string memory _message) public payable {
+        require(msg.value >= regFee, "Set registration fee to a minimum 0.0001 ETH");
         
         _profilesCreated.increment();
         _profileIds.increment();
         uint256 profileId = _profileIds.current();
 
         // create record
-        Profiles[profileId] = Profile(profileId, firstName, lastName, msg.sender);
+        Profiles[profileId] = Profile(profileId, _name, _message, msg.sender);
 
         // make payment 
         payable(address(this));
 
         hasExistingProfile[msg.sender] = true;
         // emit event
-        emit ProfileRegistered(profileId, firstName, lastName, msg.sender);
+        emit ProfileRegistered(profileId, _name, _message, msg.sender);
 
     }
 
@@ -98,6 +101,5 @@ contract Registry is ReentrancyGuard {
          hasExistingProfile[msg.sender] = false;
         
         return true;
-        // delete record with id
     }
 }
