@@ -28,7 +28,8 @@ function App() {
   }
 
   async function fetchRecords() {
-    const provider = new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/f1b4413e138b4b8a8247c53ca79bdbb5")  // production
+    // const provider = new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/f1b4413e138b4b8a8247c53ca79bdbb5")  // sepolia production
+    const provider = new ethers.providers.JsonRpcProvider("https://goerli.infura.io/v3/f1b4413e138b4b8a8247c53ca79bdbb5")  // goerli production
     // const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545/")  // local dev
     const registryContract = new ethers.Contract(contractAddress, Registry.abi, provider)
     const data = await registryContract.fetchRecords()

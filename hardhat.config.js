@@ -30,9 +30,14 @@ module.exports = {
     hardhat: {
       chainId: 1337
     },
+    goerli: {
+      url: "https://goerli.infura.io/v3/f1b4413e138b4b8a8247c53ca79bdbb5",
+      accounts: [`0x${ACCOUNT_KEY}`]
+    },
     sepolia: {
       url: "https://sepolia.infura.io/v3/f1b4413e138b4b8a8247c53ca79bdbb5",
       accounts: [`0x${ACCOUNT_KEY}`]
-    }
+    },
+    
   }
 };
